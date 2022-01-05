@@ -41,16 +41,23 @@ function draw() {
     fantasma.x = fantasma.x + 3;
 
 }
-if (keyDown("right")){
+if (keyDown("left")){
     fantasma.x = fantasma.x -3;
 
 }
     fantasma.velocityY = fantasma.velocityY +0.8;
 
-    if (gradeGRP.isTouching(fantasma)|| fantasma.y> 600){
-        estado = "gameover";
-    }
- }
+if (gradeGRP.isTouching(fantasma)){
+    fantasma.velocityY = 0;
+}
+
+if (blocoGRP.isTouching(fantasma)|| fantasma.y> 600){
+    estado = "gameover";
+}
+    drawSprites();
+    gerarPortas(); 
+}
+
 if (estado ==="gameover"){
     stroke("yellow");
     fill("yellow");
@@ -60,18 +67,6 @@ if (estado ==="gameover"){
 }
 
 
-
-
-
-
-
-
-
-
-
-
- drawSprites();
- gerarPortas();
 }
 function gerarPortas(){
     if(frameCount % 240 ===0){
@@ -83,7 +78,8 @@ function gerarPortas(){
 
     blocoINV = createSprite(200,15);
     blocoINV.width = grade.width;
-    blocoINV.height = grade.height;
+    blocoINV.height = 2;
+    blocoINV.visible = false;
 
     porta.x = Math.round(random(120,400));
     porta.velocityY = 1;
